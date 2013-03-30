@@ -1,9 +1,9 @@
 var Config = (function(){
     var config = {
         //modify these
-        'name'          : _CHAPTER_NAME_,
-        'id'            : _CHAPTER_ID_,
-        'google_api'    : _API_KEY_,
+        'name'          : "GDG Philippines",
+        'id'            : "105750470224587854845",
+        'google_api'    : "AIzaSyDhJlz9bfEcfzcSrq4FfxQrF6rf7k2SVtM",
         'pwa_id'        : _PICASA_ALBUM_ID, //picasa web album id
         //custom stuff
         'cover_photo'   : true, //best results make sure you have 940x180 image
