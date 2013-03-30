@@ -4,7 +4,7 @@ var Config = (function(){
         'name'          : "GDG Philippines",
         'id'            : "105750470224587854845",
         'google_api'    : "AIzaSyDhJlz9bfEcfzcSrq4FfxQrF6rf7k2SVtM",
-        'pwa_id'        : _PICASA_ALBUM_ID, //picasa web album id
+        //'pwa_id'        : _PICASA_ALBUM_ID, //picasa web album id
         //custom stuff
         'cover_photo'   : true, //best results make sure you have 940x180 image
         'cover_color'   : '#ffffff',
@@ -110,9 +110,10 @@ $.getJSON("http://gdgfresno.com/gdgfeed.php?id="+Config.get('id'),function(data)
 	
         if (start < now){
             $('#past_events').next().next().append(html);
-	} else {
-            $('#upcoming_events').next().next().prepend(html);
-	}
+		} else {
+			$('#upcoming_events').next().next().prepend(html);
+			console.log("upcoming_events" + data[i]);
+		}
     }
     var past = $('#past_events').next().next().children();
     if(past.length > 5 ){
@@ -127,22 +128,22 @@ $.getJSON("http://gdgfresno.com/gdgfeed.php?id="+Config.get('id'),function(data)
     });
 });
 
-//google+ photos
-var pwa = 'https://picasaweb.google.com/data/feed/api/user/'+Config.get('id')+'/albumid/'+Config.get('pwa_id')+'?access=public&alt=json-in-script&kind=photo&max-results=18&fields=entry(title,link/@href,summary,content/@src)&v=2.0&callback=?';
-$.getJSON(pwa, function(d){
-    var html, p = d.feed.entry, count=0;
-    for(var x in p){
-        count++;
-        if(count == 1){
-            html = '<li class="span4"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
-        }else if(count == 14){
-            html = '<li class="span4 pull-right"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
-        }else{
-            html = '<li class="span2"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=260" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
-        }
-        $('#photo_container').append(html);
-    }
-});
+////google+ photos
+//var pwa = 'https://picasaweb.google.com/data/feed/api/user/'+Config.get('id')+'/albumid/'+Config.get('pwa_id')+'?access=public&alt=json-in-script&kind=photo&max-results=18&fields=entry(title,link/@href,summary,content/@src)&v=2.0&callback=?';
+//$.getJSON(pwa, function(d){
+//    var html, p = d.feed.entry, count=0;
+//    for(var x in p){
+//        count++;
+//        if(count == 1){
+//            html = '<li class="span4"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
+//        }else if(count == 14){
+//            html = '<li class="span4 pull-right"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=460" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
+//        }else{
+//            html = '<li class="span2"><a href="'+p[x].link[1].href+'" class="thumbnail" target="_blank"><img src="'+ p[x].content.src + '?sz=260" alt="'+p[x].title.$t+'" title="'+p[x].summary.$t+'"></a></li>'
+//        }
+//        $('#photo_container').append(html);
+//    }
+//});
 
 //gdg g+ stream for news (reusing code from Roman Nurik for aggregating g+, twitter and friend feed stream into a webpage)
 $.getJSON('https://www.googleapis.com/plus/v1/people/' + Config.get('id') + '/activities/public?maxResults=10&key=' +Config.get('google_api'), function(response) {
